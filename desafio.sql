@@ -68,7 +68,7 @@ select * from produto order by preco desc limit 1;
 
 # 4 - Qual o produto mais barato?
 
-select min(preco) from produto;
+selec min(preco) from produto;
 
 # 5 - Mostre todos os produtos com seus respectivos 
 #departamentos
