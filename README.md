@@ -4,144 +4,149 @@
 
 <img src="./imgReadme/esquema.png"/>
 
-<p>O conjunto de instruções SQL que implementam este modelo está a seguir:</p>
+<p>O conjunto de instruções SQL que implementam este modelo está a seguir:
+<h1>Criando tabela cliente</h1>
+   
+           CREATE TABLE cliente(
 
-<p>
-CREATE TABLE cliente(
+            id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 
-   id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+            nome VARCHAR(100) NOT NULL, 
 
-   nome VARCHAR(100) NOT NULL, 
+            email VARCHAR(70) NOT NULL UNIQUE, 
 
-   email VARCHAR(70) NOT NULL UNIQUE, 
+            senha VARCHAR(20) NOT NULL, 
 
-   senha VARCHAR(20) NOT NULL, 
+            cpf VARCHAR(15) NOT NULL UNIQUE
 
-   cpf VARCHAR(15) NOT NULL UNIQUE
+            );
+   
 
-);
+<h1>Criando tabela  departamento</h1>
+
+
+
+    CREATE TABLE departamento(
+
+      codigo INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+
+      nome   VARCHAR(50) NOT NULL, 
+
+      descricao TEXT
+
+      );
+
+
+<h1>Criando tabela endereco</h1>
+            
+      CREATE TABLE endereco(
+
+         num_seq    INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+
+         tipo       VARCHAR(5) NOT NULL, 
+
+         logradouro VARCHAR(45) NOT NULL, 
+
+      numero     INTEGER, 
+
+      complemento VARCHAR(20), 
+
+      bairro     VARCHAR(30), 
+
+      cidade     VARCHAR(50),
+
+      estado     VARCHAR(2), 
+
+      cep        VARCHAR(10), 
+
+      cliente_id INTEGER NOT NULL,
+
+      CONSTRAINT endereco_cliente FOREIGN KEY 
+
+      (cliente_id) REFERENCES cliente(id)
+
+      );
 </p>
-<p>
-CREATE TABLE departamento(
+<h1>Criando tabela pedido</h1>
 
-codigo INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+      CREATE TABLE pedido(
 
-nome   VARCHAR(50) NOT NULL, 
+         numero INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 
-descricao TEXT
+         status VARCHAR(1) NOT NULL, 
 
-);
-</p>
-<p>
-CREATE TABLE endereco(
+         data_pedido DATE, 
 
-num_seq    INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+         valor_bruto DOUBLE, 
 
-tipo       VARCHAR(5) NOT NULL, 
+         desconto    DOUBLE, 
 
-logradouro VARCHAR(45) NOT NULL, 
+         valor_final   DOUBLE, 
 
-numero     INTEGER, 
+         cliente_id INTEGER NOT NULL,
 
-complemento VARCHAR(20), 
+         CONSTRAINT cliente_pedido FOREIGN KEY 
 
-bairro     VARCHAR(30), 
+            (cliente_id) REFERENCES cliente(id)
 
-cidade     VARCHAR(50),
+         );
 
-    estado     VARCHAR(2), 
+<h1>Criando tabela produto</h1>
 
-cep        VARCHAR(10), 
+      CREATE TABLE produto(
 
-cliente_id INTEGER NOT NULL,
+         codigo INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 
-CONSTRAINT endereco_cliente FOREIGN KEY 
+         nome VARCHAR(45) NOT NULL, 
 
-(cliente_id) REFERENCES cliente(id)
+         descricao TEXT, 
 
-);
-</p>
+         preco DOUBLE, 
 
-<p>
-CREATE TABLE pedido(
+         estoque INTEGER, 
 
-numero INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+         link_foto VARCHAR(255), 
 
-status VARCHAR(1) NOT NULL, 
+         departamento_codigo INTEGER NOT NULL,
 
-data_pedido DATE, 
+         CONSTRAINT produto_depto FOREIGN KEY 
 
-valor_bruto DOUBLE, 
+         (departamento_codigo) REFERENCES departamento(codigo)
 
-desconto    DOUBLE, 
-
-valor_final   DOUBLE, 
-
-cliente_id INTEGER NOT NULL,
-
-CONSTRAINT cliente_pedido FOREIGN KEY 
-
-   (cliente_id) REFERENCES cliente(id)
-
-);
-</p>
-
-<p>
-CREATE TABLE produto(
-
-codigo INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-
-nome VARCHAR(45) NOT NULL, 
-
-descricao TEXT, 
-
-preco DOUBLE, 
-
-estoque INTEGER, 
-
-link_foto VARCHAR(255), 
-
-    departamento_codigo INTEGER NOT NULL,
-
-CONSTRAINT produto_depto FOREIGN KEY 
-
-(departamento_codigo) REFERENCES departamento(codigo)
-
-);
+        );
 
 
-</p>
+ <h1>Criando tabela item_pedido</h1>
 
-<p>
-CREATE TABLE item_pedido(
 
-num_sequencial INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+        CREATE TABLE item_pedido(
 
-quantidade INTEGER, 
+         num_sequencial INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 
-valor_unitario DOUBLE, 
+         quantidade INTEGER, 
 
-valor_total DOUBLE, 
+         valor_unitario DOUBLE, 
 
-produto_codigo INTEGER NOT NULL, 
+         valor_total DOUBLE, 
 
-pedido_numero INTEGER NOT NULL,
+         produto_codigo INTEGER NOT NULL, 
 
-CONSTRAINT item_produto FOREIGN KEY 
+         pedido_numero INTEGER NOT NULL,
 
-(produto_codigo) REFERENCES produto(codigo),
+         CONSTRAINT item_produto FOREIGN KEY 
 
-CONSTRAINT item_pedido FOREIGN KEY 
+         (produto_codigo) REFERENCES produto(codigo),
 
-    (pedido_numero) REFERENCES pedido(numero)
+         CONSTRAINT item_pedido FOREIGN KEY 
 
-);
-</p>
+         (pedido_numero) REFERENCES pedido(numero)
+
+      );
 
 # Com base nestas informações, realize os seguintes exercícios, gerando instruções SQL para responder às questões.
 
 
-<p></p>
+
 
 <ol>
     <li>Este exercício é livre para você inserir dados nas tabelas. Adicione vários dados em todas as tabelas. Crie vários clientes, com vários endereços. Insira muitos produtos em vários departamentos. Crie pedidos em várias datas com meses diferentes (serão necessários para os próximos exercícios).</li>
