@@ -82,22 +82,10 @@ select * from produto inner join departamento
 #produtos que há em cada um. 
 #(pense em SUM e GROUP BY);
 
-#select departamento.nome, count(codigo)
-
-
-select departamento, count(codigo) from produto 
-	group by departamento;
-
-select * from departamento inner join produto
-	on departamento.codigo = produto.departamento_codigo;
-    
-select departamento_codigo, count(codigo) as "quantidade de 
-produtos em cada departamento" from produto 
-	group by departamento_codigo;
-
-select produto.departamento_codigo, produto.nome, departamento.nome, departamento.codigo as "quantidade de 
-produtos em cada departamento" from produto inner join departamento
-on produto.departamento_codigo = departamento.codigo;
+select produto.departamento_codigo, sum(produto.estoque) as "quantidade de 
+produtos em cada departamento", departamento.codigo, departamento.nome  from produto inner join departamento
+    on departamento.codigo = produto.departamento_codigo
+	group by departamento.nome;
 	
 
 	
