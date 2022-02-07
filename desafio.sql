@@ -113,6 +113,10 @@ select cliente.nome, produto.nome , pedido.data_pedido, pedido.valor_bruto,
 # 9 - Mostre quanto foi faturado por mês 
 #(leve em conta o valor total de cada pedido 
 #- novamente pense em GROUP BY e SUM).
+
+select data_pedido, sum(valor_final) as "Faturamento por mês"  from pedido
+group by data_pedido;
+
 # 10 - Mostre o valor total do estoque por departamento.
 select departamento_codigo, sum(preco*estoque) from produto
 group by departamento_codigo;
