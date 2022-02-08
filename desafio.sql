@@ -1,3 +1,9 @@
+#Nome dos integrantes
+#Jeovane Dos Santos Santos
+#Maria Gyseli
+#Bruno Pereira
+
+
 #Adicionar uma nova coluna
 alter table cliente add column rg varchar(10)
  not null after senha;
