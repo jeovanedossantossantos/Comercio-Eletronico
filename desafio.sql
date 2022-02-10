@@ -107,13 +107,16 @@ select * from pedido inner join item_pedido
 #que você tenha cadastrado - Novamente pense 
 #em COUNT e GROUP BY).
 
-select cliente.nome, produto.nome , pedido.data_pedido, pedido.valor_bruto,
-	pedido.desconto, pedido.valor_final, pedido.numero from
-    pedido inner join item_pedido
-    on pedido.numero = item_pedido.pedido_numero
-    inner join produto on produto.codigo = item_pedido.produto_codigo
-    inner join cliente on pedido.cliente_id = cliente.id
-    order by pedido.data_pedido;
+select month(pedido.data_pedido), count(item_pedido.quantidade) from pedido inner join item_pedido
+group by month(pedido.data_pedido);
+
+-- select cliente.nome, produto.nome , pedido.data_pedido, pedido.valor_bruto,
+-- 	pedido.desconto, pedido.valor_final, pedido.numero from
+--     pedido inner join item_pedido
+--     on pedido.numero = item_pedido.pedido_numero
+--     inner join produto on produto.codigo = item_pedido.produto_codigo
+--     inner join cliente on pedido.cliente_id = cliente.id
+--     order by pedido.data_pedido;
 
 
 # 9 - Mostre quanto foi faturado por mês 
