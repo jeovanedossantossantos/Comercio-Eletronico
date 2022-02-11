@@ -12,7 +12,7 @@ alter table cliente add column rg varchar(10)
 #Removendo uma coluna
 ALTER TABLE cliente DROP rg;
 
-#Incerindo dados
+#Inserindo dados
 #1-Este exercício é livre para você 
 #inserir dados nas tabelas. 
 #Adicione vários dados em todas 
